@@ -7,12 +7,26 @@
 //
 
 #import "ViewController.h"
+#import <WebKit/WebKit.h>
 
 @interface ViewController ()
+
+@property (nonatomic, strong) WKWebView *webView;
+
 
 @end
 
 @implementation ViewController
+
+- (void)loadView {
+    UIView *mainView = [UIView new];
+    
+    self.webView = [[WKWebView alloc] init];
+    self.webView.navigationDelegate = self;
+    
+    [mainView addSubview:self.webView];
+    self.view = mainView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
