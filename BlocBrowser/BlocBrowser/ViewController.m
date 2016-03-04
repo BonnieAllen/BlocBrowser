@@ -70,6 +70,11 @@
     
     NSURL *URL = [NSURL URLWithString:URLString];
     
+    if (!URL.scheme) {
+        // The user didn't type http: or https:
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", URLString]];
+    }
+    
     if (URL) {
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         [self.webView loadRequest:request];
