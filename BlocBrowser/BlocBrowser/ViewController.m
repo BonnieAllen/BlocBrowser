@@ -36,11 +36,6 @@
     self.textField.backgroundColor = [UIColor colorWithWhite:220/255.0f alpha:1];
     self.textField.delegate = self;
     
-    NSString *urlString = @"https://wikipedia.org";
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
-    
     
     
     [mainView addSubview:self.webView];
@@ -50,15 +45,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+     self.edgesForExtendedLayout = UIRectEdgeNone;
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    //make the webview fill the main view
-    self.webView.frame = self.view.frame;
+    static const CGFloat itemHeight = 50;
+    CGFloat width = CGRectGetWidth(self.view.bounds);
+    CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight;
+    
+    // Now, assign the frames
+    self.textField.frame = CGRectMake(0, 0, width, itemHeight);
+    self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
 }
 
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    NSString *URLString = textField.text;
+    
+    NSURL *URL = [NSURL URLWithString:URLString];
+    
+    if (URL) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        [self.webView loadRequest:request];
+    }
+    
+    return NO;
+}
 
 @end
