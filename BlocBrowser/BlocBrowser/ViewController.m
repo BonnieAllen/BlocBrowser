@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIButton *forwardButton;
 @property (nonatomic, strong) UIButton *stopButton;
 @property (nonatomic, strong) UIButton *reloadButton;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 
 
