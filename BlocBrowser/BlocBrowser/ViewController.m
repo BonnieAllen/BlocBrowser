@@ -84,6 +84,9 @@
     
      self.edgesForExtendedLayout = UIRectEdgeNone;
     // Do any additional setup after loading the view, typically from a nib.
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
 }
 
 - (void) viewWillLayoutSubviews {
@@ -173,6 +176,12 @@
         self.title = webpageTitle;
     } else {
         self.title = self.webView.URL.absoluteString;
+    }
+    
+    if (self.webView.isLoading) {
+        [self.activityIndicator startAnimating];
+    } else {
+        [self.activityIndicator stopAnimating];
     }
     
     self.backButton.enabled = [self.webView canGoBack];
