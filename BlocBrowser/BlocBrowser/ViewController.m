@@ -33,5 +33,12 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void) viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    //make the webview fill the main view
+    self.webView.frame = self.view.frame;
+}
+
 
 @end
