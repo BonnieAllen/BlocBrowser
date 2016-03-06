@@ -12,6 +12,7 @@
 		9FA909CD1C88F85100625E76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA909CC1C88F85100625E76 /* ViewController.m */; };
 		9FA909D21C88F85100625E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FA909D11C88F85100625E76 /* Assets.xcassets */; };
 		9FA909D51C88F85100625E76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FA909D31C88F85100625E76 /* LaunchScreen.storyboard */; };
+		9FACD43B1C8A7488001BE82D /* AwesomeFloatingToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FACD43A1C8A7488001BE82D /* AwesomeFloatingToolbar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		9FA909D11C88F85100625E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FA909D41C88F85100625E76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FA909D61C88F85100625E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FACD4391C8A7488001BE82D /* AwesomeFloatingToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwesomeFloatingToolbar.h; sourceTree = "<group>"; };
+		9FACD43A1C8A7488001BE82D /* AwesomeFloatingToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwesomeFloatingToolbar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +63,8 @@
 				9FA909C91C88F85100625E76 /* AppDelegate.m */,
 				9FA909CB1C88F85100625E76 /* ViewController.h */,
 				9FA909CC1C88F85100625E76 /* ViewController.m */,
+				9FACD4391C8A7488001BE82D /* AwesomeFloatingToolbar.h */,
+				9FACD43A1C8A7488001BE82D /* AwesomeFloatingToolbar.m */,
 				9FA909D11C88F85100625E76 /* Assets.xcassets */,
 				9FA909D31C88F85100625E76 /* LaunchScreen.storyboard */,
 				9FA909D61C88F85100625E76 /* Info.plist */,
@@ -148,6 +153,7 @@
 				9FA909CD1C88F85100625E76 /* ViewController.m in Sources */,
 				9FA909CA1C88F85100625E76 /* AppDelegate.m in Sources */,
 				9FA909C71C88F85100625E76 /* main.m in Sources */,
+				9FACD43B1C8A7488001BE82D /* AwesomeFloatingToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +294,7 @@
 				9FA909DB1C88F85100625E76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
