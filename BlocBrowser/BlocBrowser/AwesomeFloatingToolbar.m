@@ -66,6 +66,7 @@
     [[UIPanGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(panFired:)];
     [self addGestureRecognizer:panGesture];
+    
     UIPinchGestureRecognizer *pinchGesture =
     [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                               action:@selector(pinchFired:)];
