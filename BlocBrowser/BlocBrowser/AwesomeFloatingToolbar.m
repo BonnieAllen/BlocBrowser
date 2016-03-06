@@ -13,6 +13,12 @@
 @property (nonatomic, strong) NSArray *currentTitles;
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic, strong) NSArray *labels;
+@property (nonatomic, strong) NSArray *buttons;
+@property(nonatomic, strong) UIButton *backButton;
+@property(nonatomic, strong) UIButton *forwardButton;
+@property(nonatomic, strong) UIButton *stopButton;
+@property(nonatomic, strong) UIButton *refreshButton;
+
 @property (nonatomic, weak) UILabel *currentLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
@@ -37,41 +43,33 @@
                         [UIColor colorWithRed:222/255.0 green:165/255.0 blue:164/255.0 alpha:1],
                         [UIColor colorWithRed:255/255.0 green:179/255.0 blue:71/255.0 alpha:1]];
         
-        NSMutableArray *labelsArray = [[NSMutableArray alloc] init];
         
-        // Make the 4 labels
-        for (NSString *currentTitle in self.currentTitles) {
-            UILabel *label = [[UILabel alloc] init];
-            label.userInteractionEnabled = NO;
-            label.alpha = 0.25;
-            
-            NSUInteger currentTitleIndex = [self.currentTitles indexOfObject:currentTitle]; // 0 through 3
-            NSString *titleForThisLabel = [self.currentTitles objectAtIndex:currentTitleIndex];
-            UIColor *colorForThisLabel = [self.colors objectAtIndex:currentTitleIndex];
-            
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = [UIFont systemFontOfSize:10];
-            label.text = titleForThisLabel;
-            label.backgroundColor = colorForThisLabel;
-            label.textColor = [UIColor whiteColor];
-            
-            [labelsArray addObject:label];
+        [self setupGestures];
+        
+        
+        self.buttons = @[self.backButton, self.forwardButton, self.stopButton, self.refreshButton];
+        
+        for (UIButton *thisButton in self.buttons) {
+            [self addSubview:thisButton];
         }
-        
-        self.labels = labelsArray;
-        
-        for (UILabel *thisLabel in self.labels) {
-            [self addSubview:thisLabel];
-        }
-        
-        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
-        [self addGestureRecognizer:self.tapGesture];
-        self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
-        [self addGestureRecognizer:self.panGesture];
-
     }
-
     return self;
+}
+
+- (void) setupGestures {
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+                                               initWithTarget:self
+                                               action:@selector(longPressFired:)];
+    [self addGestureRecognizer:longPress];
+    
+    UIPanGestureRecognizer *panGesture =
+    [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(panFired:)];
+    [self addGestureRecognizer:panGesture];
+    UIPinchGestureRecognizer *pinchGesture =
+    [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                              action:@selector(pinchFired:)];
+    [self addGestureRecognizer:pinchGesture];
 }
 
 - (void) tapFired:(UITapGestureRecognizer *)recognizer {
@@ -100,6 +98,31 @@
         [recognizer setTranslation:CGPointZero inView:self];
     }
 }
+
+- (void) pinchFired:(UIPinchGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPinchToScale:)]) {
+            [self.delegate floatingToolbar:self didTryToPinchToScale:recognizer.scale];
+        }
+        
+    }
+}
+
+- (void)longPressFired:(UILongPressGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateRecognized) {
+        
+        NSMutableArray *newColors = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < self.colors.count; ++i) {
+            [newColors addObject:self.colors[(i - 1) % self.colors.count]];
+            
+        }
+        
+        self.colors = newColors;
+        
+    }
+}
+
+
 
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
     CGPoint startingPoint = toolbar.frame.origin;
