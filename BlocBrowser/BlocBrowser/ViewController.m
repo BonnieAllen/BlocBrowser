@@ -218,5 +218,46 @@
     [self updateButtonsAndTitle];
 }
 
+#pragma mark - BLCAwesomeFloatingToolbarDelegate
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didSelectButton:(UIButton *)button {
+    NSString *title = button.currentTitle;
+    NSLog(@"%@", title);
+    if ([title isEqual:kWebBrowserBackString]) {
+        [self.webView goBack];
+        NSLog(@"Did Goback");
+    } else if ([title isEqual:kWebBrowserForwardString]) {
+        [self.webView goForward];
+        NSLog(@"Did Goforward");
+    } else if ([title isEqual:kWebBrowserStopString]) {
+        [self.webView stopLoading];
+        NSLog(@"Did Stopped Loading");
+    } else if ([title isEqual:kWebBrowserRefreshString]) {
+        [self.webView reload];
+        NSLog(@"Did reload");
+    }
+}
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
+    CGPoint startingPoint = toolbar.frame.origin;
+    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
+    
+    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
+}
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchToScale:(CGFloat)scale {
+    CGFloat floored = MAX(scale, 0.5);
+    self.awesomeToolbar.transform = CGAffineTransformMakeScale(floored, floored);
+}
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToLongPressToRotateColors:(BOOL)rotateColors {
+    
+}
+
+
 
 @end
