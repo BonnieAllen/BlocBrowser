@@ -109,6 +109,11 @@
     
     NSString *URLString = textField.text;
     NSString *query = nil;
+    /*
+    if ([URLString isEqualToString:@"apple"]) {
+        URL
+    }
+     */
     
     NSRange whiteSpaceRange = [URLString rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
     // Does URLString have spaces in it?
